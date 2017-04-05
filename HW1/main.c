@@ -46,7 +46,7 @@ int main(int argc, char* argv[]){
 		if(oneLine[len-1] == '\n')
 			oneLine[len-1] = 0;
 		if(strstr(operation(oneLine), "ERROR"))
-			printf("%s in line %d in file %s\n", operation(oneLine), line, argv[1]);
+			printf("%s (in %s file line %d)\n", operation(oneLine), argv[1], line);
 		else
 			puts(operation(oneLine));
 	}
@@ -142,8 +142,18 @@ char* operation(char input[]){
 
 int recognize(char input[]){
 	input += 1;
-	if(!strncmp(input, "Insert", 6))
+	if(!strncmp(input, "Insert", 6)){
+		int count=0;
+		char *end = strchr(input, '>');
+		if(end){
+			for(int i=0; i<=end-input; i++)
+				if(input[i] == '\'')	count++;
+			if(count!=4)	return -1;
+		}
+		else
+			return -1;
 		return INSERT;
+	}
 	else if(!strncmp(input, "Newline>", 8))
 		return NEWLINE;
 	else if(!strncmp(input, "Proper>", 7))
