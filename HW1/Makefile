@@ -1,5 +1,5 @@
 all:
-	gcc -o Typeset main.c
+	gcc -std=c11 -o Typeset main.c
 	./Typeset test.tex
 	vim test.output
 clear:
