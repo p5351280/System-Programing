@@ -15,7 +15,7 @@
 #define ENDLOWER 9
 #define ENDREVERSE 10
 
-int operation(char []);
+char* operation(char []);
 int recognize(char []);
 char* Insert(char []);
 char* Proper(char []);
@@ -42,26 +42,55 @@ int main(int argc, char* argv[]){
 	}
 	int line = 0;
 	char oneLine[SIZE];
-	while(fgets(oneLine, SIZE, stdin)){
-		len = strlen(oneLine);
-		if(oneLine[len-1] == '\n')
-			oneLine[len-1] = 0;
-		operation(oneLine);
-	}
+	printf("%d, %d", recognize("<Proper>1234"), recognize("</Proper>123"));
+	/*
+	   while(fgets(oneLine, SIZE, stdin)){
+	   memset(stk, 0, sizeof(stk));
+	   top = -1;
+	   len = strlen(oneLine);
+	   if(oneLine[len-1] == '\n')
+	   oneLine[len-1] = 0;
+	   puts(operation(oneLine));
+	   }
+	 */
 	return 0;
 }
 
-int operation(char input[]){
+char* operation(char input[]){
 	char *temp;
 	while((temp = strchr(input, '<'))){
-		
+
 	}
 }
 
 int recognize(char input[]){
-	
+	input += 1;
+	if(!strncmp(input, "Insert", 6))
+		return INSERT;
+	else if(!strncmp(input, "Newline", 7))
+		return NEWLINE;
+	else if(!strncmp(input, "Proper", 6))
+		return PROPER;
+	else if(!strncmp(input, "Upper", 5))
+		return UPPER;
+	else if(!strncmp(input, "Lower", 5))
+		return LOWER;
+	else if(!strncmp(input, "Reverse", 7))
+		return REVERSE;
+	else{
+		input += 1;
+		if(!strncmp(input, "Proper", 6))
+			return ENDPROPER;
+		else if(!strncmp(input, "Upper", 5))
+			return ENDUPPER;
+		else if(!strncmp(input, "Lower", 5))
+			return ENDLOWER;
+		else if(!strncmp(input, "Reverse", 7))
+			return ENDREVERSE;
+		else
+			return -1;
+	}
 }
-
 char* Insert(char input[]){
 	static char result[SIZE];
 	memset(result, 0, sizeof(result));
@@ -71,7 +100,7 @@ char* Insert(char input[]){
 	temp_1 = strchr(input, '\'');
 	temp_2 = strchr(temp_1+1, '\'');
 	strncpy(ch, temp_1+1, temp_2-temp_1-1);
-	
+
 	/* find for num */
 	temp_1 = strchr(temp_2+1, '\'');
 	temp_2 = strchr(temp_1+1, '\'');
