@@ -1,3 +1,7 @@
+/*
+404410053 資工二 張碩恩
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -22,7 +26,6 @@ char* Proper(char []);
 char* Upper(char []);
 char* Lower(char []);
 char* Reverse(char []);
-int check(int [], int);
 
 int main(int argc, char* argv[]){
 	if(freopen(argv[1], "r", stdin) == NULL){
@@ -33,6 +36,7 @@ int main(int argc, char* argv[]){
 	char out[SIZE];
 	strncpy(out, argv[1], len-3);
 	strcpy(out+len-3, "output");
+	printf("Output file: ");
 	puts(out);
 	if(freopen(out, "w", stdout)==NULL){
 		printf("ERROR: Can't Create File\n");
@@ -71,7 +75,8 @@ char* operation(char input[]){
 			int kind = recognize(start);
 			if(kind < 0){
 				return "ERROR: wrong tags";
-			}
+			}	
+			/* start of tag */
 			else if(kind == INSERT){
 				end = strchr(start, '>');
 				char temp[SIZE]={0};
@@ -97,8 +102,11 @@ char* operation(char input[]){
 				}
 				final = top;
 			}
-			else{
-				if(stk[top] != kind-4)
+			/* end of tag */
+			else{	
+				if(top == 0)
+					return "ERROR: The tag is not a pair.";
+				else if(stk[top] != kind-4)
 					return "ERROR: Pairs of tags are interleaved!";
 				else{
 					int choose = stk[top];
@@ -181,7 +189,7 @@ int recognize(char input[]){
 
 char* Insert(char input[]){
 	static char result[SIZE];
-	memset(result, 0, sizeof(result));
+memset(result, 0, sizeof(result));
 	char *temp_1, *temp_2, ch[SIZE]={0}, nu[SIZE]={0};
 
 	/* find for word */
