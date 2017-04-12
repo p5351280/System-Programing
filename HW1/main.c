@@ -189,7 +189,7 @@ int recognize(char input[]){
 
 char* Insert(char input[]){
 	static char result[SIZE];
-memset(result, 0, sizeof(result));
+	memset(result, 0, sizeof(result));
 	char *temp_1, *temp_2, ch[SIZE]={0}, nu[SIZE]={0};
 
 	/* find for word */
