@@ -38,7 +38,7 @@ void controlRod(){
 
 void endGame(){
 	printf("\n");
-	printf("Totally caught fishes: %d",cnt);
+	printf("Totally caught fishes: %d\n",cnt);
 	exit(0);
 }
 
